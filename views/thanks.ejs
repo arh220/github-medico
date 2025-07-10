@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Order Confirmation</title>
+
+</head>
+
+<body>
+
+    <%- include('./partials/nav') %>
+
+        <div class="invoice-wrapper">
+            <div class="invoice-header">
+                <h1>Thank You for Your Order!</h1>
+                <p>We appreciate your purchase.</p>
+            </div>
+
+            <div class="customer-info">
+                <div class="section-title">Customer Details</div>
+                <div class="info-row">
+                    <p><strong>Name:</strong>
+                        <%= order.name %>
+                    </p>
+                    <p><strong>Email:</strong>
+                        <%= order.email %>
+                    </p>
+                    <p><strong>Phone:</strong>
+                        <%= order.mo %>
+                    </p>
+                    <p><strong>Address:</strong>
+                        <%= order.addre %>, <%= order.city %> - <%= order.pincode %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <div class="section-title">Order Summary</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price (₹)</th>
+                            <th>Qty</th>
+                            <th class="text-right">Total (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% order.cartItems.forEach(item=> { %>
+                            <tr>
+                                <td>
+                                    <%= item.name %>
+                                </td>
+                                <td>
+                                    <%= item.price.toFixed(2) %>
+                                </td>
+                                <td>
+                                    <%= item.quantity %>
+                                </td>
+                                <td class="text-right">
+                                    <%= item.total.toFixed(2) %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                    <tfoot>
+                        <tr class="summary-footer">
+                            <td colspan="3">Subtotal</td>
+                            <td class="text-right">₹<%= order.subtotal.toFixed(2) %>
+                            </td>
+                        </tr>
+                        <tr class="summary-footer">
+                            <td colspan="3">Shipping</td>
+                            <td class="text-right">₹<%= order.shipping.toFixed(2) %>
+                            </td>
+                        </tr>
+                        <tr class="summary-footer">
+                            <td colspan="3">Grand Total</td>
+                            <td class="text-right">₹<%= order.grandTotal.toFixed(2) %>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="btn-container">
+                <a href="/" class="btn border-secondary px-4 py-3 text-primary text-uppercase mb-4 ms-4 w-100">Continue
+                    Shopping</a>
+            </div>
+        </div>
+
+
+
+
+        <%- include('./partials/footer') %>
+            <%- include('./partials/script') %>
+</body>
+
+</html>

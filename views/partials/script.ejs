@@ -1,0 +1,149 @@
+<!-- jQuery and Bootstrap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS Libraries -->
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/lightbox/js/lightbox.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+<!-- Main JS -->
+<script src="/js/main.js"></script>
+
+<!-- Optional: DOM Loaded Logic -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const today = new Date().toISOString().split('T')[0];
+        const dobInput = document.getElementById("dob");
+        if (dobInput) {
+            dobInput.setAttribute("max", today);
+        }
+    });
+</script>
+<script>
+    const mobileInput = document.getElementById('mobile');
+
+    mobileInput.addEventListener('input', function () {
+        // Remove non-digit characters
+        this.value = this.value.replace(/\D/g, '');
+
+        // Limit to 10 digits
+        if (this.value.length > 10) {
+            this.value = this.value.slice(0, 10);
+        }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const shippingCharge = 3.00;
+
+        function updateTotals() {
+            let subtotal = 0;
+
+            document.querySelectorAll("tbody tr").forEach(row => {
+                const qtyInput = row.querySelector('input[type="text"]');
+                const priceElem = row.querySelector("td:nth-child(3) p");
+                const totalElem = row.querySelector("td:nth-child(5) p");
+
+                const price = parseFloat(priceElem.textContent) || 0;
+                const qty = parseInt(qtyInput.value.trim()) || 1;
+                const total = price * qty;
+
+                totalElem.textContent = `${total.toFixed(2)} $`;
+                subtotal += total;
+            });
+
+            document.querySelector(".subtotal-amount").textContent = `₹${subtotal.toFixed(2)}`;
+            document.querySelector(".grand-total-amount").textContent = `₹${(subtotal + shippingCharge).toFixed(2)}`;
+        }
+
+        // Quantity +/- button handlers
+        document.querySelectorAll("tbody tr").forEach(row => {
+            const minusBtn = row.querySelector(".btn-minus");
+            const plusBtn = row.querySelector(".btn-plus");
+            const qtyInput = row.querySelector('input[type="text"]');
+            const priceElem = row.querySelector("td:nth-child(3) p");
+            const totalElem = row.querySelector("td:nth-child(5) p");
+
+            qtyInput.classList.add("quantity-input");
+            totalElem.classList.add("total-price");
+
+            const price = parseFloat(priceElem.textContent) || 0;
+
+            // Set initial total
+            totalElem.textContent = (price * parseInt(qtyInput.value || 1)).toFixed(2) + ' $';
+
+            plusBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                let qty = parseInt(qtyInput.value.trim()) || 1;
+                qty = qty + 1;
+                qtyInput.value = qty;
+                totalElem.textContent = (price * qty).toFixed(2) + ' $';
+                updateTotals();
+            });
+
+            minusBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                let qty = parseInt(qtyInput.value.trim()) || 1;
+                if (qty > 1) {
+                    qty = qty - 1;
+                    qtyInput.value = qty;
+                    totalElem.textContent = (price * qty).toFixed(2) + ' $';
+                    updateTotals();
+                }
+            });
+        });
+
+        // Remove button
+        document.querySelectorAll(".remove-btn").forEach(button => {
+            button.addEventListener("click", async () => {
+                const productId = button.getAttribute("data-product-id");
+
+                const response = await fetch("/cart/remove", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ productId })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const row = button.closest("tr");
+                    row.remove();
+                    updateTotals();
+                }
+            });
+        });
+
+        updateTotals(); // Initial totals
+    });
+</script>
+<script>
+    function saveCartToLocalStorage() {
+        const cartItems = [];
+
+        document.querySelectorAll("tbody tr").forEach(row => {
+            const productId = row.querySelector('.remove-btn').getAttribute('data-product-id');
+            const name = row.querySelector('td:nth-child(2) p').textContent.trim();
+            const image = row.querySelector('img').getAttribute('src');
+            const price = parseFloat(row.querySelector('td:nth-child(3) p').textContent.trim());
+            const qty = parseInt(row.querySelector('input.quantity-input').value.trim());
+            const total = (price * qty).toFixed(2);
+
+            cartItems.push({
+                productId,
+                name,
+                image,
+                price,
+                qty,
+                total
+            });
+        });
+
+        localStorage.setItem('cartData', JSON.stringify(cartItems));
+    }
+</script>

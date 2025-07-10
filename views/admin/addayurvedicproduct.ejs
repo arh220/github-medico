@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <title>Add Product</title>
+        <link rel="stylesheet" href="/css/adminstyle.css">
+</head>
+
+<body>
+    <%- include("./partials/sidebar") %>
+
+        <!-- Main Content Area -->
+        <div class="container d-flex justify-content-center align-items-center form-wrapper" style="margin-top: 150px">
+            <div class="bg-white shadow rounded p-4" style="width: 600px;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Add Ayurvedic Product</h2>
+                </div>
+
+                <!-- Centered Form Start -->
+                <form action="/admin/addayurvdcpro" method="post" enctype="multipart/form-data">
+                    <!-- Brand -->
+                    <div class="mb-3">
+                        <label for="generic" class="form-label">Select Brand</label>
+                        <select class="form-select select2" id="genericb" name="brandId" required
+                            onchange="onAyurvedicBrandChange(this.value)">
+                            <option value="">---Select Brand---</option>
+                            <% allAyurvediBrands.forEach(brand=> { %>
+                                <option value="<%= brand._id %>" <%=(selectedBrand &&
+                                    selectedBrand.toString()===brand._id.toString()) ? 'selected' : '' %>>
+                                    <%= brand.brandName %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category Name</label>
+                        <select class="form-select select2" id="category" name="catId" required>
+                            <option value="">---Select Category---</option>
+                            <% allAyurvedicCategories.forEach(category=> { %>
+                                <option value="<%= category._id %>">
+                                    <%= category.catName %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productimage" class="form-label">Product Image</label>
+                        <input type="file" class="form-control" id="productimage" name="productimage" accept="image/*"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="disc" class="form-label">Description</label>
+                        <textarea class="form-control" id="disc" name="disc" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="form" class="form-label">Form</label>
+                        <input type="text" class="form-control" id="form" name="form" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pakingsize" class="form-label">Paking size</label>
+                        <input type="text" class="form-control" id="pakingsize" name="pakingSize" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price (₹)</label>
+                        <input type="number" class="form-control" id="mrp" name="mrp" required min="0" step="0.01">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary px-4">Add Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <%- include("./partials/script") %>
+</body>
+
+</html>

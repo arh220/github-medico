@@ -1,0 +1,39 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function showBrandTable() {
+        // Hide other sections if needed
+        document.getElementById("brandTableSection").style.display = "block";
+    }
+</script>
+<!-- jQuery and Select2 JS -->
+
+<script>
+    function onBrandChange(brandId) {
+        if (brandId) {
+            // Reload the page with ?brand=brandId to fetch categories from backend
+            window.location.href = `/admin/product?brand=${brandId}`;
+        } else {
+            // No brand selected, reload without query
+            window.location.href = "/admin/product";
+        }
+    }
+    function onGenericBrandChange(brandId) {
+        if (brandId) {
+            // Reload the page with ?brand=brandId to fetch categories from backend
+            window.location.href = `/admin/genericproduct?brandid=${brandId}`;
+        } else {
+            // No brand selected, reload without query
+            window.location.href = "/admin/product";
+        }
+    }
+    function onAyurvedicBrandChange(brandId) {
+        if (brandId) {
+            // Reload the page with ?brand=brandId to fetch categories from backend
+            window.location.href = `/admin/ayurvedicpro?brandid=${brandId}`;
+        } else {
+            // No brand selected, reload without query
+            window.location.href = "/admin/product";
+        }
+    }
+
+</script>

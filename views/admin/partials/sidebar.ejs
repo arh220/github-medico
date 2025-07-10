@@ -1,0 +1,194 @@
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="text-center mb-4">
+        <img src="<%= adminuser.image %>" alt="aaa" width="80" height="80" class="rounded-circle" />
+
+        <strong class="d-block mt-2">
+            <%= adminuser.email %>
+        </strong>
+
+    </div>
+
+    <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link text-white" href="/admin/index">Dashboard</a></li>
+
+        <!-- Brands -->
+        <li>
+            <a class="nav-link text-white submenu-toggle d-flex justify-content-between align-items-center"
+                data-bs-toggle="collapse" href="#brandsSubmenu" role="button" aria-expanded="false"
+                aria-controls="brandsSubmenu">
+                Brands <i class="bi bi-caret-down-fill"></i>
+            </a>
+            <div class="collapse submenu" id="brandsSubmenu">
+                <ul class="nav flex-column">
+                    <li><a href="" class="nav-link text-white" data-bs-toggle="modal"
+                            data-bs-target="#addBrandModal">Add Branded</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/admin/allbrand">All Brands</a>
+                    </li>
+                    <li><a href="" class="nav-link text-white" data-bs-toggle="modal"
+                            data-bs-target="#addgenericBrandModal">Add Generic Brands</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/admin/allgenericb">All Generic Brands</a>
+                    </li>
+                    <li><a href="" class="nav-link text-white" data-bs-toggle="modal"
+                            data-bs-target="#addayurvedicBrandModal">Add Ayurvedic Brands</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/admin/allayurvdcbrd">All Ayurvedic Brands</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <!-- Category -->
+
+        <li>
+            <a class="nav-link text-white submenu-toggle d-flex justify-content-between align-items-center"
+                data-bs-toggle="collapse" href="#categorySubmenu" role="button" aria-expanded="false"
+                aria-controls="categorySubmenu">
+                Category <i class="bi bi-caret-down-fill"></i>
+            </a>
+            <div class="collapse submenu" id="categorySubmenu">
+                <ul class="nav flex-column">
+                    <li><a href="/admin/addcategory" class="nav-link text-white">Add Branded Category</a></li>
+                    <li><a href="/admin/allcategory" class="nav-link text-white">All Branded Category</a></li>
+                    <li><a href="/admin/addgenericcat" class="nav-link text-white">Add Generic Category</a></li>
+                    <li><a href="/admin/allgenericcat" class="nav-link text-white">All Generic Category</a></li>
+                    <li><a href="/admin/addayurvdccat" class="nav-link text-white">Add Ayurvedic Category</a></li>
+                    <li><a href="/admin/allayurvdccat" class="nav-link text-white">All Ayurvedic Category</a></li>
+            </div>
+        </li>
+
+        <!-- Products -->
+        <li>
+            <a class="nav-link text-white submenu-toggle d-flex justify-content-between align-items-center"
+                data-bs-toggle="collapse" href="#productsSubmenu" role="button" aria-expanded="false"
+                aria-controls="productsSubmenu">
+                Products <i class="bi bi-caret-down-fill"></i>
+            </a>
+            <div class="collapse submenu" id="productsSubmenu">
+                <ul class="nav flex-column">
+                    <li><a href="/admin/product" class="nav-link text-white">Add Branded Product</a></li>
+                    <li><a href="/admin/allproduct" class="nav-link text-white">All Branded Produtcs</a></li>
+                    <li><a href="/admin/genericproduct" class="nav-link text-white">Add Generic Product</a></li>
+                    <li><a href="/admin/allgenericpro" class="nav-link text-white">All Generic Produtcs</a></li>
+                    <li><a href="/admin/ayurvedicpro" class="nav-link text-white">Add Ayurvedic Product</a></li>
+                    <li><a href="/admin/allayurvdcpro" class="nav-link text-white">All Ayurvedic Produtcs</a></li>
+                </ul>
+            </div>
+        </li>
+
+
+        <!-- Orders -->
+        <li>
+            <a class="nav-link text-white submenu-toggle d-flex justify-content-between align-items-center"
+                data-bs-toggle="collapse" href="#ordersSubmenu" role="button" aria-expanded="false"
+                aria-controls="ordersSubmenu">
+                Orders <i class="bi bi-caret-down-fill"></i>
+            </a>
+            <div class="collapse submenu" id="ordersSubmenu">
+                <ul class="nav flex-column">
+                    <li><a href="/admin/allorders" class="nav-link text-white">All Orders</a></li>
+                    <li><a href="#" class="nav-link text-white">Pending Orders</a></li>
+                    <li><a href="#" class="nav-link text-white">Completed Orders</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item"><a class="nav-link text-white" href="/admin/signup">Signu up</a></li>
+
+        <li class="nav-item"><a class="nav-link text-white" href="#">Customers</a></li>
+    </ul>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar-custom">
+    <form class="d-flex me-auto" role="search">
+        <input class="form-control form-control-sm me-2" type="search" placeholder="Search" />
+        <button class="btn btn-outline-light btn-sm" type="submit"><i class="bi bi-search"></i></button>
+    </form>
+
+    <ul class="navbar-nav ms-auto d-flex flex-row align-items-center">
+        <li class="nav-item me-3 position-relative">
+            <a class="nav-link text-white" href="#">
+                <i class="bi bi-bell-fill"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                <img src="<%= adminuser.image %>" width="30" height="30" class="rounded-circle me-2">
+                <%= adminuser.email %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/admin">Logout</a></li>
+
+            </ul>
+        </li>
+    </ul>
+</nav>
+<!-- Add Brand Modal -->
+<div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" action="/admin/addbrand" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Brand</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Brand Name</label>
+                    <input type="text" class="form-control" name="brandName" required />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit">Save Brand</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Add Generic Brand Modal -->
+<div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addayurvedicBrandModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" action="/admin/addgenericbrand" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Generic Brand</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Brand Name</label>
+                    <input type="text" class="form-control" name="brandName" required />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit">Save Brand</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Add Ayurvedic Brand Modal -->
+<div class="modal fade" id="addayurvedicBrandModal" tabindex="-1" aria-labelledby="addayurvedicBrandModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" action="/admin/addayurvdcbrand" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Ayurvedic Brand</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Brand Name</label>
+                    <input type="text" class="form-control" name="brandName" required />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit">Save Brand</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+<!-- Spinner Start -->
+<div id="spinner"
+    class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+</div>
+
+<div class="container-fluid fixed-top">
+    <% if (locals.user) { %>
+
+        <div class="container topbar bg-primary d-none d-lg-block">
+            <div class="d-flex justify-content-between">
+                <div class="top-info ps-2">
+                    <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+                            class="text-white">123 Street, New York</a></small>
+                    <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#"
+                            class="text-white">
+                            <%= user.email %>
+                        </a></small>
+                </div>
+                <div class="top-link pe-2">
+                    <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
+                    <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
+                    <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                </div>
+            </div>
+            <% }else { %>
+                <div class="container topbar bg-primary d-none d-lg-block">
+                    <div class="d-flex justify-content-between">
+                        <div class="top-info ps-2">
+                            <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+                                    class="text-white">123 Street, New York</a></small>
+                            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#"
+                                    class="text-white">example@gmail.com
+                                </a></small>
+                        </div>
+                        <div class="top-link pe-2">
+                            <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
+                            <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
+                            <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                        </div>
+                    </div>
+                    <% }%>
+                </div>
+                <div class="container px-0">
+                    <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                        <a href="index.html" class="navbar-brand">
+                            <!-- <h1 class="text-primary display-6">Shree </h1> -->
+                            <img src="../img/logo/4.png" alt="aaa" height="110px" width="110px">
+                        </a>
+                        <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarCollapse">
+                            <span class="fa fa-bars text-primary"></span>
+                        </button>
+                        <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                            <div class="navbar-nav mx-auto">
+                                <a href="/" class="nav-item nav-link active">Home</a>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Branded</a>
+                                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                        <% if (allbrands && allbrands.length>0) { %>
+                                            <% allbrands.forEach(brand=> { %>
+                                                <% let brandcategories=categories.filter(cat=> cat.brand &&
+                                                    cat.brand._id.toString() === brand._id.toString()); %>
+                                                    <% if (brandcategories.length>0) { %>
+                                                        <div class="dropdown-submenu dropdown-item position-relative">
+                                                            <a href="#" class="dropdown-toggle text-dark">
+                                                                <%= brand.brandName %>
+                                                            </a>
+                                                            <div class="dropdown-menu bg-secondary position-absolute
+                                                        start-100 top-0 mt-0 rounded-0">
+                                                                <% brandcategories.forEach(category=> { %>
+                                                                    <a class="dropdown-item i1"
+                                                                        href="/product/<%= category._id %>">
+                                                                        <%= category.category %>
+                                                                    </a>
+                                                                    <% });%>
+                                                            </div>
+                                                        </div>
+                                                        <% }}); %>
+                                                            <% } %>
+
+                                    </div>
+                                </div>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Generic</a>
+                                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                        <!-- Main drop Down -->
+                                        <% if (allgenericbrands && allgenericbrands.length>0) { %>
+                                            <% allgenericbrands.forEach(allbrands=> { %>
+                                                <% let brandcategories=allgenericcategories.filter(cat=> cat.brandId &&
+                                                    cat.brandId._id.toString() === allbrands._id.toString()); %>
+                                                    <div class="dropdown-submenu position-relative">
+                                                        <a href="#" class="dropdown-item dropdown-toggle text-dark"
+                                                            data-bs-toggle="dropdown">
+                                                            <%= allbrands.brandName %>
+                                                        </a>
+                                                        <div
+                                                            class="dropdown-menu bg-secondary position-absolute start-100 top-0 mt-0 rounded-0">
+                                                            <% brandcategories.forEach(category=> { %>
+                                                                <a class="dropdown-item i1 "
+                                                                    href="/genericpro/<%= category._id %>">
+                                                                    <%= category.catName %>
+                                                                </a>
+                                                                <% }) %>
+                                                        </div>
+                                                    </div>
+                                                    <% }) %>
+                                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Ayurvedic</a>
+                                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                        <!-- Main drop Down -->
+                                        <% if (allAyurvedicbrands && allAyurvedicbrands.length>0) { %>
+                                            <% allAyurvedicbrands.forEach(allbrands=> { %>
+                                                <% let brandcategories=allAyurvediccategories.filter(cat=> cat.brandId
+                                                    &&
+                                                    cat.brandId._id.toString() === allbrands._id.toString()); %>
+                                                    <div class="dropdown-submenu position-relative">
+                                                        <a href="#" class="dropdown-item dropdown-toggle text-dark"
+                                                            data-bs-toggle="dropdown">
+                                                            <%= allbrands.brandName %>
+                                                        </a>
+                                                        <div
+                                                            class="dropdown-menu bg-secondary position-absolute start-100 top-0 mt-0 rounded-0">
+                                                            <% brandcategories.forEach(category=> { %>
+                                                                <a class="dropdown-item i1 "
+                                                                    href="/ayurvedicpro/<%= category._id %>">
+                                                                    <%= category.catName %>
+                                                                </a>
+                                                                <% }) %>
+                                                        </div>
+                                                    </div>
+                                                    <% }) %>
+                                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Cosmetics</a>
+                                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                        <a href="" class="dropdown-item">Hair Oil</a>
+                                        <a href="" class="dropdown-item">Shampoo</a>
+                                        <a href="" class="dropdown-item">Powder</a>
+                                        <a href="" class="dropdown-item">Soap</a>
+                                        <a href="" class="dropdown-item">Collgate</a>
+                                        <a href="" class="dropdown-item">Perfume</a>
+                                    </div>
+                                </div>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                        <a href="cart.html" class="dropdown-item">Cart</a>
+                                        <a href="chackout.html" class="dropdown-item">Chackout</a>
+                                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                                        <a href="404.html" class="dropdown-item">404 Page</a>
+                                    </div>
+                                </div>
+                                <a href="/contact" class="nav-item nav-link">Contact</a>
+                                <a href="/signup" class="nav-item nav-link">Sign up</a>
+                            </div>
+                            <div class="d-flex m-3 me-0">
+                                <button class="btn-search btn border border-secondary  rounded-circle bg-white p-3 me-4"
+                                    data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                                        class="fas fa-search text-primary"></i></button>
+                                <a href="#" class="position-relative me-4 my-auto">
+                                    <i class="fa fa-shopping-bag fa-2x"></i>
+                                    <span
+                                        class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                        style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                </a>
+                                <div class="dropdown-submenu dropdown-item position-relative m-0">
+                                    <% if (locals.user) { %>
+                                        <a href="" class="my-auto">
+                                            <img src="<%= user.image %>" alt="aaa" height="50px" width="50px"
+                                                style="border-radius: 50%;"></a>
+
+                                        <div class="dropdown-menu bg-secondary position-absolute start-0 top-100 m-0">
+                                            <a class="dropdown-item i1" href="/signout">Sign out</a>
+                                        </div>
+                                        <% } else { %>
+                                            <a href="" class="my-auto">
+                                                <i class="fas fa-user fa-2x mt-2"></i>
+                                            </a>
+                                            <div
+                                                class="dropdown-menu bg-secondary position-absolute start-0 top-100 m-0">
+                                                <a class="dropdown-item i1" href="/signin">Sign in</a>
+                                            </div>
+                                            <% } %>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+        </div>
+
+        <!-- Navbar End -->
+        <!-- Modal Search Start -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <input type="search" class="form-control p-3" placeholder="keywords"
+                                aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Search End -->

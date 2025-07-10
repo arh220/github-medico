@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+        <title>
+            Product Details
+        </title>
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+        <div class="container py-5">
+            <div class="row g-5">
+
+                <!-- Product Image -->
+                <div>abc</div>
+                <div></div>
+
+                <div class="col-md-5">
+                    <img src="<%= products.productimage  %>" alt="abc" class="img-fluid rounded border shadow-sm mt-1">
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-md-7">
+                    <h2 class="fw-bold mb-2">
+                        <%= products.name %>
+                    </h2>
+                    <p class="text-muted fs-6">Choose Generic substitutes to Save up to 50% off</p>
+                    <p><strong>Disease Area:</strong> Ulcer / Reflux / Flatulence</p>
+                    <p><strong>Prescription Required:</strong> Yes</p>
+
+
+                    <div class="mb-3">
+                        <h4 class="text-success fw-bold">₹<%= products.mrp %>
+                                <small class="text-decoration-line-through text-muted ms-2">₹<%= products.mrp %>
+                                </small>
+                                <span class="badge bg-warning text-dark ms-2">Save 12%</span>
+                        </h4>
+                        <p class="text-muted">Inclusive of all taxes</p>
+                    </div>
+
+                    <ul class="list-unstyled mb-4">
+                        <li>* Packaging size : <%= products.pakingSize %>
+                        </li>
+                        <li>* Brand : <%= products.brandId.brandName %>
+                        </li>
+                        <li>* Form : <%= products.form %>
+                        </li>
+                        <li>* Itraconazol : <%= products.content %>
+                        </li>
+                        <li>* Country of Origin: India</li>
+                        <li>* Delivery charges may apply at checkout</li>
+                    </ul>
+
+                    <!-- Quantity Selector -->
+                    <div class="d-flex align-items-center mb-4">
+                        <label class="me-3">Quantity:</label>
+                        <button class="btn btn-outline-secondary btn-sm">−</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+
+                    <a href="/cart/<%= products._id %>" class="btn btn-primary px-4 py-2">
+                        <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                    </a>
+                </div>
+
+            </div>
+            <!-- Introduction -->
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <h4 class="fw-bold mb-3">Introduction About <%= products.name %>
+                    </h4>
+                    <p>
+                        <%= products.disc %>
+                    </p>
+                </div>
+            </div>
+            <!-- Offers & Membership -->
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <div class="p-4 bg-light border rounded">
+                        <h5 class="fw-bold">Offers</h5>
+                        <ul class="mb-3">
+                            <li>💸 Additional 2% NMS cash up to ₹100 on prepaid medicine</li>
+                            <li>🚚 Unlimited Free Delivery on orders above ₹99</li>
+                            <li>⚡ Superfast Delivery for all orders</li>
+                            <li>💳 <strong>MED125</strong>: Flat 18% off + ₹125 wallet cash on min ₹1500</li>
+                        </ul>
+
+                        <p class="text-muted">2 / 3 Months Membership from ₹99. <a href="">View All</a></p>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <%- include('./partials/footer.ejs') %>
+            <%- include('./partials/script.ejs') %>
+</body>
+
+</html>

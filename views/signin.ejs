@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Sign up Page</title>
+</head>
+
+<body>
+
+    <%- include('./partials/nav') %>
+
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Sign in</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active text-white">Sign in</li>
+            </ol>
+        </div>
+        <!-- Single Page Header End -->
+
+        <!-- Sign-in Page Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <h1 class="mb-4 text-center">Sign in</h1>
+
+                <form method="post" action="/signin">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 col-lg-6 col-xl-7">
+
+                            <!-- Error Alert Box -->
+                            <% if (error) { %>
+                                <div class="alert alert-danger text-center">
+                                    <%= error %>
+                                </div>
+                                <% } %>
+
+                                    <!-- Email Input -->
+                                    <div class="form-item">
+                                        <label class="form-label my-3">Email Address<sup>*</sup></label>
+                                        <input type="email" name="email" class="form-control" required>
+                                    </div>
+
+                                    <!-- Password Input -->
+                                    <div class="form-item">
+                                        <label class="form-label my-3">Password<sup>*</sup></label>
+                                        <input type="password" name="password" class="form-control" required>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="form-item text-center mt-4">
+                                        <button type="submit" class="btn btn-primary px-5 py-2">Sign in</button>
+                                    </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Sign-in Page End -->
+
+        <%- include('./partials/footer') %>
+            <%- include('./partials/script') %>
+</body>
+
+</html>

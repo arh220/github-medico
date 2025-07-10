@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+        <title>Product Page</title>
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Generic Products</h1>
+        </div>
+        <!-- Product Section -->
+        <div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <div class="tab-class text-center">
+                    <div class="row g-4">
+                        <div class="col-lg-4 text-start">
+                            <h1>Our Generic Products</h1>
+                        </div>
+                        <div class="col-lg-8 text-end">
+                            <ul class="nav nav-pills d-inline-flex text-center mb-5">
+                                <li class="nav-item">
+                                    <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill"
+                                        href="#tab-allpro">
+                                        <span class="text-dark" style="width: 200px;">All Generic Products</span>
+                                    </a>
+                                </li>
+                                <% categoriesOfBrand.forEach((cat,j)=> { %>
+                                    <li class="nav-item">
+                                        <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill"
+                                            href="#tab-<%= j %>">
+                                            <span class="text-dark" style="width: 130px;">
+                                                <%= cat.catName %>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <% }) %>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <!-- All Products Tab -->
+                        <div id="tab-allpro" class="tab-pane fade show active p-0">
+                            <div class="row g-4">
+                                <% allproducts.forEach(product=> { %>
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="fruite-img">
+                                                <img src="<%= product.productimage %>"
+                                                    class="img-fluid w-100 rounded-top" alt="">
+                                            </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                style="top: 10px; left: 10px;">
+                                                <%= product.catId ? product.catId.catName : 'No Category' %>
+                                            </div>
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4>
+                                                    <%= product.name %>
+                                                </h4>
+                                                <p>
+                                                    <%= product.disc %>
+                                                </p>
+                                                <a href="/ayurmoredetails/<%= product._id %>"
+                                                    class="border-info rounded-pill px-3 text-primary">
+                                                    <i class="me-2 text-primary"></i> More Details
+                                                </a>
+
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                                        ₹<%= product.mrp %>
+                                                    </p>
+
+                                                    <a href="/cart/<%= product._id%>"
+                                                        class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                        </div>
+
+                        <!-- Category Tabs -->
+                        <% categoriesOfBrand.forEach((cat, j)=> { %>
+                            <div id="tab-<%= j %>" class="tab-pane fade p-0">
+                                <div class="row g-4">
+                                    <% allproducts.filter(p=> p.catId && p.catId._id.toString() === cat._id.toString())
+                                        .forEach(product => { %>
+                                        <div class="col-md-6 col-lg-4 col-xl-3">
+                                            <div class="rounded position-relative fruite-item">
+                                                <div class="fruite-img">
+                                                    <img src="<%= product.productimage %>"
+                                                        class="img-fluid w-100 rounded-top" alt="">
+                                                </div>
+                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                    style="top: 10px; left: 10px;">
+                                                    <%= product.name %>
+                                                </div>
+                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                    <h4>
+                                                        <%= product.name %>
+                                                    </h4>
+                                                    <p>
+                                                        <%= product.disc %>
+                                                    </p>
+                                                    <div class="d-flex justify-content-between flex-lg-wrap">
+                                                        <p class="text-dark fs-5 fw-bold mb-0">
+                                                            ₹<%= product.mrp %>
+                                                        </p>
+                                                        <a href="/cart/<%= product._id%>"
+                                                            class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                            cart
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <%- include('./partials/footer.ejs') %>
+            <%- include('./partials/script.ejs') %>
+
+</body>
+
+</html>

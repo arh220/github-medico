@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+
+        <title>Add Generic Category</title>
+        <link rel="stylesheet" href="/css/adminstyle.css">
+</head>
+
+<body>
+
+    <%- include("./partials/sidebar") %>
+
+        <div class="container d-flex justify-content-center align-items-center form-wrapper"
+            style="margin-top: -100px;">
+            <div class="bg-white shadow rounded p-4" style="width: 600px; height: 300px;">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Add Generic Category</h2>
+                </div>
+                <!-- Centered Form Start -->
+                <form action="/admin/addgenericcat" method="post">
+                    <div class="mb-3">
+                        <label for="brand" class="form-label">Select Brand</label>
+                        <select class="form-select select2" id="brand" name="brandId" required>
+                            <option value="">---Select Brand---</option>
+
+                            <% allbrands.forEach(brand=> { %>
+                                <option value="<%= brand._id %>">
+                                    <%= brand.brandName %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" id="category" name="catName"
+                            placeholder="Enter category" required>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Centered Form End -->
+
+
+
+        <%- include("./partials/script") %>
+</body>
+
+</html>

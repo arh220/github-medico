@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <title>All Brand</title>
+
+</head>
+
+<body>
+    <%- include("./partials/sidebar") %>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>All Generic Brands</h2>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addgenericBrandModal">
+                        + Add Generic Brand
+                    </button>
+                </div>
+                <!-- Brand Table -->
+                <div class="d-flex justify-content-center">
+                    <div class="table-responsive" style="width: 1000px; justify-content: center; padding: 50px;">
+                        <table
+                            class="table table-bordered table-striped table-sm text-sm align-middle text-center compact-table"
+                            style="padding: 30px;">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Brand Name</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (allgenericb && allgenericb.length> 0) { %>
+                                    <% allgenericb.forEach((brand, index)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td>
+                                                <%= brand.brandName %>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal"
+                                                    data-bs-target="#editgenericBrandModal-<%= brand._id %>">
+                                                    <i class="bi bi-pencil-fill"></i> Edit
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deletegenericBrandModal-<%= brand._id %>">
+                                                    <i class="bi bi-trash-fill"></i> Delete
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="3">No brands found.</td>
+                                                </tr>
+                                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modals: Edit and Delete -->
+        <% if (allgenericb && allgenericb.length> 0) { %>
+            <% allgenericb.forEach((brand)=> { %>
+                <!-- Edit Modal -->
+                <div class="modal fade mt-5" id="editgenericBrandModal-<%= brand._id %>" tabindex="-1"
+                    aria-labelledby="editgenericBrandModalLabel-<%= brand._id %>" aria-hidden="true">
+                    <div class="modal-dialog  " style="background-color: white; border-radius: 7px;">
+                        <form class="modal-content" action="/admin/editgenericb/<%= brand._id %>" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editgenericBrandModalLabel-<%= brand._id %>">Edit Brand</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Brand Name</label>
+                                    <input type="text" class="form-control" name="brandName"
+                                        value="<%= brand.brandName %>" required />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="submit">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deletegenericBrandModal-<%= brand._id %>" tabindex="-1"
+                    aria-labelledby="deletegenericBrandModalLabel-<%= brand._id %>" aria-hidden="true">
+                    <div class="modal-dialog" style="background-color: white; border-radius: 7px;">
+                        <form class="modal-content" action="/admin/deletegenericb/<%= brand._id %>" method="get">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deletegenericBrandModalLabel-<%= brand._id %>">Delete
+                                    Generic Brand
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete <strong>
+                                    <%= brand.brandName %>
+                                </strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+                    <% } %>
+                        <!-- End Modals -->
+                        <%- include("./partials/script") %>
+
+</body>
+
+</html>

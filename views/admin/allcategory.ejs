@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>All Categories</title>
+        <link rel="stylesheet" href="/css/adminstyle.css">
+</head>
+
+<body>
+
+    <%- include('./partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="container" style="width: 600px;">
+                <div class="d-flex justify-content-center align-items-center mb-4">
+                    <h2>All Categories</h2>
+                </div>
+
+                <table class="table table-bordered table-striped text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>No</th>
+                            <th> <a href="?page=<%= currentPage %>&brandSort=<%= nextBrandSort %>"
+                                    class="text-white text-decoration-none">
+                                    Brand<% if (brandSort==="asc" ) { %>
+                                        <i class="bi bi-chevron-down"></i>
+                                        <% } else { %>
+                                            <i class="bi bi-chevron-up"></i>
+                                            <% } %>
+                                </a></th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (allcategorys && allcategorys.length> 0) { %>
+                            <% allcategorys.forEach((allcategory, index)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= index + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= allcategory.brand ? allcategory.brand.brandName : "N/A" %>
+                                    </td>
+                                    <td>
+                                        <%= allcategory.category %>
+                                    </td>
+                                    <td>
+                                        <!-- Delete Button Trigger -->
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteCategoryModal-<%= allcategory._id %>">
+                                            <i class="bi bi-trash-fill"></i> Delete
+                                        </button>
+
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="deleteCategoryModal-<%= allcategory._id %>"
+                                            tabindex="-1"
+                                            aria-labelledby="deleteCategoryModalLabel-<%= allcategory._id %>"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <form class="modal-content"
+                                                    action="/admin/deletecategory/<%= allcategory._id %>" method="get">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"
+                                                            id="deleteCategoryModalLabel-<%= allcategory._id %>">
+                                                            Delete Category
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete <strong>
+                                                            <%= allcategory.category %>
+                                                        </strong>?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="3">No categories found.</td>
+                                        </tr>
+                                        <% } %>
+                    </tbody>
+                </table>
+                <!-- Pagination Controls -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                            <a class="page-link"
+                                href="/admin/allcategory?page=<%= currentPage - 1 %>&brandSort=<%= brandSort %>">
+                                Previous
+                            </a>
+                        </li>
+
+                        <% for (let p=1; p <=totalPages; p++) { %>
+                            <li class="page-item <%= p === currentPage ? 'active' : '' %>">
+                                <a class="page-link" href="/admin/allcategory?page=<%= p %>&brandSort=<%= brandSort %>">
+                                    <%= p %>
+                                </a>
+                            </li>
+                            <% } %>
+
+                                <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                    <a class="page-link"
+                                        href="/admin/allcategory?page=<%= currentPage + 1 %>&brandSort=<%= brandSort %>">
+                                        Next
+                                    </a>
+                                </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+        <%- include('./partials/script') %>
+</body>
+
+</html>

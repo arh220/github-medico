@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <%- include("./partials/head") %>
+
+
+        <title>Admin Dashboard</title>
+
+        <link rel="stylesheet" href="/css/adminstyle.css">
+
+
+</head>
+
+
+<body>
+
+    <%- include("./partials/sidebar") %>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>Welcome to Admin Dashboard <%= adminuser.email %>
+            </h2>
+            <p>This is your main content area.</p>
+        </div>
+        <% if (error) { %>
+            <div class="alert alert-danger text-center">
+                <%= error %>
+            </div>
+            <% } %>
+
+
+                <%- include("./partials/script") %>
+</body>
+
+</html>

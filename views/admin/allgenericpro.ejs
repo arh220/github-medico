@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <title>All Brand</title>
+        <link rel="stylesheet" href="/css/adminstyle.css">
+
+</head>
+
+<body>
+    <%- include("./partials/sidebar") %>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>All Product</h2>
+                    <button class="btn btn-success"><a href="/admin/genericproduct" class="alink">
+                            + Add Product</a>
+                    </button>
+                </div>
+
+                <!-- Brand Table -->
+                <!-- Brand Table -->
+                <div class="d-flex justify-content-center">
+                    <div class="table-responsive" style="width: 1500px; justify-content: center; padding: 50px;">
+                        <table
+                            class="table table-bordered table-striped table-sm text-sm align-middle text-center compact-table"
+                            style="padding: 30px;">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Brand Name</th>
+                                    <th scope="col">Category Name</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Content</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Form</th>
+                                    <th scope="col">Paking size</th>
+                                    <th scope="col">MRP</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (allproducts && allproducts.length> 0) { %>
+                                    <% allproducts.forEach((product, index)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td>
+                                                <%= product.brandId ? product.brandId.brandName : "N/A" %>
+
+                                            </td>
+                                            <td>
+                                                <%= product.catId ? product.catId.catName : "N/A" %>
+                                            </td>
+                                            <td>
+                                                <%= product.name %>
+                                            </td>
+                                            <td>
+                                                <%= product.content %>
+                                            </td>
+                                            <td>
+                                                <%=product.disc %>
+                                            </td>
+                                            <td>
+                                                <%= product.form %>
+                                            </td>
+                                            <td>
+                                                <%= product.pakingSize %>
+                                            </td>
+                                            <td>
+                                                ₹<%=product.mrp %>
+                                            </td>
+                                            <td>
+                                                <img src="<%= product.productimage %>" width="60px" alt="abc">
+                                            </td>
+                                            <td>
+
+                                                <div class="d-flex align-items-center">
+                                                    <button
+                                                        class="btn btn-primary btn-md d-flex align-items-center me-2"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#editgenericproductModal-<%= product._id %>">
+                                                        <i class="bi bi-pencil-fill me-1"></i> <span>Edit</span>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-md d-flex align-items-center"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deletegenericproductModal-<%= product._id %>">
+                                                        <i class="bi bi-trash-fill me-1"></i> <span>Delete</span>
+                                                    </button>
+                                                </div>
+
+
+                                            </td>
+
+
+                                        </tr>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="3">No product found.</td>
+                                                </tr>
+                                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals: Edit and Delete -->
+        <% if (allproducts && allproducts.length> 0) { %>
+            <% allproducts.forEach((product)=> { %>
+                <!-- Edit Modal -->
+                <div class="modal fade mt-5" id="editgenericproductModal-<%= product._id %>" tabindex="-1"
+                    aria-labelledby="editgenericproductModalLabel-<%= product._id %>" aria-hidden="true">
+                    <div class="modal-dialog  " style="background-color: white; border-radius: 7px;">
+                        <form class="modal-content" action="/admin/editgenericpro/<%= product._id %>" method="post"
+                            enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editBrandModalLabel-<%= product._id %>">Edit Generic
+                                    Product</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" name="name" value="<%= product.name %>"
+                                        required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Content</label>
+                                    <input type="text" class="form-control" name="content"
+                                        value="<%= product.content %>" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Description</label>
+                                    <input type="text" class="form-control" name="disc" value="<%= product.disc %>"
+                                        required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Form</label>
+                                    <input type="text" class="form-control" name="form" value="<%= product.form %>"
+                                        required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Paking size</label>
+                                    <input type="text" class="form-control" name="pakingSize"
+                                        value="<%= product.pakingSize %>" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Mrp</label>
+                                    <input type="text" class="form-control" name="mrp" value="<%= product.mrp %>"
+                                        required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Current Image</label><br />
+                                    <% if (product.productimage) { %>
+                                        <img src="<%= product.productimage %>" alt="Product Image" width="100px"
+                                            class="mb-2" />
+                                        <p class="text-muted">Filename: <%= product.productimage.split('/').pop() %>
+                                        </p>
+                                        <% } else { %>
+                                            <p>No image uploaded.</p>
+                                            <% } %>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Upload New Image (optional)</label>
+                                    <input type="file" class="form-control" name="productimage" />
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="submit">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deletegenericproductModal-<%= product._id %>" tabindex="-1"
+                    aria-labelledby="deletegenericproductdModalLabel-<%= product._id %>" aria-hidden="true">
+                    <div class="modal-dialog" style="background-color: white; border-radius: 7px;">
+                        <form class="modal-content" action="/admin/deletegenericpro/<%= product._id %>" method="get">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deletegenericproductModalLabel-<%= product._id %>">
+                                    Delete Product</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete <strong>
+                                    <%= product.name %>
+                                </strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+                    <% } %>
+                        <!-- End Modals -->
+
+
+
+
+                        <%- include("./partials/script") %>
+
+</body>
+
+</html>
