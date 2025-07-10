@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -13,10 +14,10 @@ const { checkForAuthCookie } = require("./middleware/auth");
 const { globalData, globalGenericData, globalayurvedicData, adminSignupUser } = require("./middleware/globaldata");
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 mongoose
-  .connect("mongodb://localhost:27017/pharmaDB")
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("mongoDB connect..."))
   .catch(error => console.log(error));
 
