@@ -14,15 +14,22 @@ const { checkForAuthCookie } = require("./middleware/auth");
 const { globalData, globalGenericData, globalayurvedicData, adminSignupUser } = require("./middleware/globaldata");
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
-mongoose.connect(
-  process.env.MONGO_URL,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }
-);
+mongoose
+  .connect(
+    process.env.MONGO_URL,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+  )
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch(err => {
+    console.log("MongoDB connection error:", err);
+  });
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
