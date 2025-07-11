@@ -14,13 +14,12 @@ const { checkForAuthCookie } = require("./middleware/auth");
 const { globalData, globalGenericData, globalayurvedicData, adminSignupUser } = require("./middleware/globaldata");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-
+const PORT = process.env.PORT || 8000;
 
 mongoose
   .connect(process.env.MONGO_URL)
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error:", err));
+  .then(() => console.log("mongoDB connect..."))
+  .catch(error => console.log(error));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
