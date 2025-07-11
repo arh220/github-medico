@@ -21,8 +21,6 @@ mongoose
   .then(() => console.log("mongoDB connect..."))
   .catch(error => console.log(error));
 
-// mongoose.set("strictPopulate", false);
-
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.static("public"));
