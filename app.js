@@ -16,20 +16,12 @@ const { globalData, globalGenericData, globalayurvedicData, adminSignupUser } = 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const mongoose = require("mongoose");
+
 mongoose
-  .connect(
-    process.env.MONGO_URL,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }
-  )
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch(err => {
-    console.log("MongoDB connection error:", err);
-  });
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
