@@ -9,6 +9,7 @@ async function signinAdmin(req, res) {
   if (!adminuser) {
     return res.render("admin/signin", { error: "You Are not Authorized..." });
   }
+  req.session.admin = adminuser;
   return res.redirect("/admin/index");
 }
 

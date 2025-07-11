@@ -47,7 +47,7 @@ router.get("/", (req, res) => {
   res.render("admin/signin", { error: null });
 });
 router.get("/index", (req, res) => {
-  res.render("admin/index", { error: null });
+  res.render("admin/index", { error: null, adminuser: req.session.admin });
 });
 const adminstorage = multer.diskStorage({
   destination: function(req, file, cb) {
