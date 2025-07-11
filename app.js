@@ -16,7 +16,6 @@ const { globalData, globalGenericData, globalayurvedicData, adminSignupUser } = 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const mongoose = require("mongoose");
 
 mongoose
   .connect(process.env.MONGO_URL)
