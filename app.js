@@ -35,7 +35,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: "mongodb://localhost:27017/pharmaDB",
+      mongoUrl: process.env.MONGO_URL,
       collectionName: "sessions"
     }),
     cookie: { maxAge: 1000 * 60 * 60 * 24 }
