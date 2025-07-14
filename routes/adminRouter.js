@@ -53,7 +53,7 @@ router.get("/", (req, res) => {
 });
 router.get("/index", (req, res) => {
   if (!res.locals.adminuser) {
-    res.render("/admin");
+    res.render("admin/signin", { error: "Please login as admin" });
   }
   res.render("admin/index", { error: null });
 });

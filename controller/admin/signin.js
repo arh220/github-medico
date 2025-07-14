@@ -2,12 +2,16 @@ const user = require("../../model/user");
 const bcrypt = require("bcrypt");
 
 async function signinAdmin(req, res) {
-  const { email } = req.body;
+  const { email, password } = req.body;
 
   const adminuser = await user.findOne({ email, role: "ADMIN" });
 
   if (!adminuser) {
     return res.render("admin/signin", { error: "You Are not Authorized..." });
+  }
+  const ismatch = await bcrypt.compare(password, adminuser.password);
+  if (!ismatch) {
+    return res.render("admin/signin", { error: "email or pass not match" });
   }
   req.session.admin = adminuser;
   return res.redirect("/admin/index");
