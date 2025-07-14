@@ -40,14 +40,18 @@ const {
 const { allOrders } = require("../controller/admin/allorders");
 const { signinAdmin, signupAdminPage, createsignupAdmin } = require("../controller/admin/signin");
 const { error } = require("console");
+const { adminSignupUser } = require("../middleware/globaldata");
 
 const router = express.Router();
-
+router.use(adminSignupUser);
 router.get("/", (req, res) => {
   res.render("admin/signin", { error: null });
 });
 router.get("/index", (req, res) => {
-  res.render("admin/index", { error: null, adminuser: req.session.admin });
+  if (!res.locals.adminuser) {
+    res.render("/admin");
+  }
+  res.render("admin/index", { error: null });
 });
 const adminstorage = multer.diskStorage({
   destination: function(req, file, cb) {

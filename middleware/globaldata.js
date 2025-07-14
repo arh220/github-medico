@@ -7,6 +7,7 @@ const Product = require("../model/admin/product");
 const ayurvedicbrand = require("../model/admin/ayurvedicbrand");
 const ayurvediccat = require("../model/admin/ayurvediccat");
 const ayurvedicproduct = require("../model/admin/ayurvedicproduct");
+const User = require("../model/user");
 
 async function globalData(req, res, next) {
   const brands = await Brand.find();
@@ -51,8 +52,8 @@ async function globalayurvedicData(req, res, next) {
   next();
 }
 async function adminSignupUser(req, res, next) {
-  if (req.session && req.session.adminuser) {
-    const adminuser = await user.findById(req.session.adminuser._id);
+  if (req.session && req.session.admin) {
+    const adminuser = await User.findById(req.session.admin._id);
     res.locals.adminuser = adminuser;
   } else {
     res.locals.adminuser = null;

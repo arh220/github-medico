@@ -43,7 +43,7 @@ app.use(
 );
 
 app.use("/", userRouter);
-app.use("/admin", adminSignupUser, adminRouter);
+app.use("/admin", adminRouter);
 
 app.listen(PORT, () => {
   console.log("server started...");
