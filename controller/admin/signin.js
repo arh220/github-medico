@@ -15,7 +15,7 @@ async function signinAdmin(req, res) {
 
 async function createsignupAdmin(req, res) {
   const { name, email, password, role, mo, city, dob, gender } = req.body;
-  const existemail = await user.find({ email });
+  const existemail = await user.findOne({ email });
   if (existemail) {
     res.render("admin/signup", { error: "Email Alredy Exist..." });
   }
