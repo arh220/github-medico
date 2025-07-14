@@ -44,6 +44,10 @@ const { adminSignupUser } = require("../middleware/globaldata");
 
 const router = express.Router();
 router.use(adminSignupUser);
+router.use((req, res, next) => {
+  if (req.path === "/" || req.path === "/signup" || req.path === "/signin") return next();
+  return adminSignupUser(req, res, next);
+});
 router.get("/", (req, res) => {
   res.render("admin/signin", { error: null });
 });
@@ -64,6 +68,9 @@ const adminstorage = multer.diskStorage({
 const adminuploads = multer({ storage: adminstorage });
 
 router.post("/signin", signinAdmin);
+router.get("/signup", (req, res) => {
+  res.render("admin/signup", { error: null });
+});
 router.post("/signup", adminuploads.single("image"), createsignupAdmin);
 
 router.get("/allbrand", getAllBrand);
@@ -92,7 +99,7 @@ router.get("/allproduct", getAllProduct);
 
 const storage1 = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, `public/img,product`);
+    cb(null, `public/img/product`);
   },
   filename: function(req, file, cb) {
     cb(null, `${Date.now()}-${file.originalname}`);
