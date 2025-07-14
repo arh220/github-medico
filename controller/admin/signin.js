@@ -33,5 +33,13 @@ async function createsignupAdmin(req, res) {
   });
   res.render("admin/index", { error: null });
 }
+async function signoutAdmin(req, res) {
+  req.session.destroy(err => {
+    if (err) {
+      console.log("Logout error:", err);
+    }
+    res.redirect("/admin");
+  });
+}
 
-module.exports = { signinAdmin, createsignupAdmin };
+module.exports = { signinAdmin, createsignupAdmin, signoutAdmin };

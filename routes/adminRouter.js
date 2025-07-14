@@ -38,7 +38,7 @@ const {
   deletAyurvedicProduct
 } = require("../controller/admin/ayurvedicproduct");
 const { allOrders } = require("../controller/admin/allorders");
-const { signinAdmin, signupAdminPage, createsignupAdmin } = require("../controller/admin/signin");
+const { signinAdmin, signupAdminPage, createsignupAdmin, signoutAdmin } = require("../controller/admin/signin");
 const { error } = require("console");
 const { adminSignupUser } = require("../middleware/globaldata");
 
@@ -72,6 +72,7 @@ router.get("/signup", (req, res) => {
   res.render("admin/signup", { error: null });
 });
 router.post("/signup", adminuploads.single("image"), createsignupAdmin);
+router.get("/signout", signoutAdmin);
 
 router.get("/allbrand", getAllBrand);
 router.post("/addbrand", createBrand);
