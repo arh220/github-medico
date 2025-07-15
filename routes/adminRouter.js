@@ -1,7 +1,7 @@
 const express = require("express");
 const { createBrand, getAllBrand, editBrand, deleteBrand } = require("../controller/admin/brand");
 const { getbrand, addCategory, getAllCategory, deleteCategory } = require("../controller/admin/category");
-const { getAddProductPage, addProduct, getAllProduct, editProduct, deleteProduct } = require("../controller/admin/product");
+const { getAddProductPage, getAllProduct, editProduct, deleteProduct, addProduct } = require("../controller/admin/product");
 const multer = require("multer");
 const path = require("path");
 const { createGenericBrand, getAllGenericBrand, editGenericBrand, deleteGenericBrand } = require("../controller/admin/generic");
@@ -41,6 +41,7 @@ const { allOrders } = require("../controller/admin/allorders");
 const { signinAdmin, signupAdminPage, createsignupAdmin, signoutAdmin } = require("../controller/admin/signin");
 const { error } = require("console");
 const { adminSignupUser } = require("../middleware/globaldata");
+const upload = require("../utils/multer");
 
 const router = express.Router();
 router.use(adminSignupUser);
@@ -86,15 +87,15 @@ router.get("/deletecategory/:id", deleteCategory);
 
 router.get("/product", getAddProductPage);
 
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    return cb(null, "public/img/product");
-  },
-  filename: function(req, file, cb) {
-    return cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-const upload = multer({ storage });
+// const storage = multer.diskStorage({
+//   destination: function(req, file, cb) {
+//     return cb(null, "public/img/product");
+//   },
+//   filename: function(req, file, cb) {
+//     return cb(null, `${Date.now()}-${file.originalname}`);
+//   }
+// });
+// const upload = multer({ storage });
 router.post("/addproduct", upload.single("productimage"), addProduct);
 router.get("/allproduct", getAllProduct);
 
@@ -107,7 +108,7 @@ const storage1 = multer.diskStorage({
   }
 });
 
-const uploads = multer({ storage });
+const uploads = multer({ storage1 });
 router.post("/editproduct/:id", uploads.single("productimage"), editProduct);
 router.get("/deleteproduct/:id", deleteProduct);
 

@@ -12,6 +12,7 @@ const path = require("path");
 const { error } = require("console");
 const { checkForAuthCookie } = require("./middleware/auth");
 const { globalData, globalGenericData, globalayurvedicData, adminSignupUser } = require("./middleware/globaldata");
+const { cloudinaryConfig } = require("./utils/cloudinary");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -24,6 +25,7 @@ mongoose
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.static("public"));
+app.use(express.static("uploads"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
@@ -47,4 +49,5 @@ app.use("/admin", adminRouter);
 
 app.listen(PORT, () => {
   console.log("server started...");
+  cloudinaryConfig();
 });

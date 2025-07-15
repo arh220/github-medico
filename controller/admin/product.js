@@ -1,6 +1,7 @@
 const Brand = require("../../model/admin/brand");
 const Category = require("../../model/admin/category");
 const Product = require("../../model/admin/product");
+const uploadimage = require("../../utils/uploadimage");
 
 async function getAddProductPage(req, res) {
   try {
@@ -20,7 +21,9 @@ async function getAddProductPage(req, res) {
 }
 async function addProduct(req, res) {
   const { brand, category, name, disc, mrp, content, pakingSize, form } = req.body;
+  const image = req.file;
   // console.log(req.body);
+  const url = await uploadimage(image.path);
   const products = await Product.create({
     brand,
     category,
