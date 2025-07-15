@@ -98,7 +98,7 @@
                                                 </p>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                                     <p class="text-dark fs-5 fw-bold mb-0">
-                                                        <%= product.mrp %>
+                                                        ₹<%= product.mrp %>
                                                     </p>
                                                     <a href="/cart/<%= product._id%>"
                                                         class="btn border border-secondary rounded-pill px-3 text-primary"><i
@@ -287,9 +287,6 @@
                             </div>
                         </div>
                         <% }) %>
-
-
-
                 </div>
             </div>
         </div>
@@ -334,10 +331,6 @@
             </div>
         </div>
         <!-- Fact Start -->
-
-
-
-
         <%- include('./partials/footer') %>
             <%- include('./partials/script') %>
 </body>
