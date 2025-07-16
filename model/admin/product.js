@@ -22,6 +22,10 @@ const addProductSchema = new mongoose.Schema(
       required: true,
       default: "./img/product/default.png"
     },
+    imageId: {
+      type: String,
+      required: true
+    },
     content: {
       type: String,
       required: true

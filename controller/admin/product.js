@@ -1,7 +1,8 @@
 const Brand = require("../../model/admin/brand");
 const Category = require("../../model/admin/category");
 const Product = require("../../model/admin/product");
-const uploadimage = require("../../utils/uploadimage");
+const { uploadimage, deleteImageFromCloudinary } = require("../../utils/uploadimage");
+const fs = require("fs");
 
 async function getAddProductPage(req, res) {
   try {
@@ -22,13 +23,15 @@ async function getAddProductPage(req, res) {
 async function addProduct(req, res) {
   const { brand, category, name, disc, mrp, content, pakingSize, form } = req.body;
   const image = req.file;
-  // console.log(req.body);
-  const url = await uploadimage(image.path);
+  // console.log(req.file);
+  const { secure_url, public_id } = await uploadimage(image.path);
+  fs.unlinkSync(image.path);
   const products = await Product.create({
     brand,
     category,
     name,
-    productimage: `/img/product/${req.file?.filename || "default.png"}`,
+    productimage: secure_url,
+    imageId: public_id,
     disc,
     mrp,
     content,
@@ -69,6 +72,7 @@ async function getAllProduct(req, res) {
 async function editProduct(req, res) {
   const { name, disc, mrp, content, form, pakingSize } = req.body;
   const productid = req.params.id;
+  const newImage = req.file;
   const existproduct = await Product.findById(productid);
 
   existproduct.name = name;
@@ -77,13 +81,21 @@ async function editProduct(req, res) {
   existproduct.content = content;
   existproduct.form = form;
   existproduct.pakingSize = pakingSize;
-  if (req.file) {
-    existproduct.productimage = `/img/product/${req.file.filename}`;
+  if (newImage) {
+    await deleteImageFromCloudinary(existproduct.imageId);
+
+    const { secure_url, public_id } = await uploadimage(newImage.path);
+
+    fs.unlinkSync(newImage.path);
+    existproduct.productimage = secure_url;
+    existproduct.imageId = public_id;
   }
   await existproduct.save();
   return getAllProduct(req, res);
 }
 async function deleteProduct(req, res) {
+  const product = await Product.findById(req.params.id);
+  await deleteImageFromCloudinary(product.imageId);
   await Product.findByIdAndDelete(req.params.id);
   return getAllProduct(req, res);
 }
