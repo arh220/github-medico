@@ -22,6 +22,10 @@ const addgenericProductSchema = new mongoose.Schema(
       required: true,
       default: "./img/genericproimage/default.png"
     },
+    imageId: {
+      type: String,
+      required: true
+    },
     content: {
       type: String,
       required: true

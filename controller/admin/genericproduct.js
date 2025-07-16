@@ -1,6 +1,7 @@
 const genericb = require("../../model/admin/genericbrand");
 const genericcat = require("../../model/admin/genericcat");
 const genericproduct = require("../../model/admin/genericproduct");
+const { uploadimage } = require("../../utils/uploadimage");
 
 async function getGenericProductPage(req, res) {
   try {
@@ -17,11 +18,15 @@ async function getGenericProductPage(req, res) {
 }
 async function createGenericProduct(req, res) {
   const { brandId, catId, name, disc, mrp, content, pakingSize, form } = req.body;
+  const image = req.body;
+  const { secure_url, public_id } = await uploadimage(image.path);
+
   await genericproduct.create({
     brandId,
     catId,
     name,
-    productimage: `/img/genericproimage/${req.file?.filename || "default.png"}`,
+    productimage: secure_url,
+    imageId: public_id,
     disc,
     mrp,
     content,

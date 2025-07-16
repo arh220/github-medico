@@ -21,6 +21,10 @@ const addayurvedicProductSchema = new mongoose.Schema(
       required: true,
       default: "./img/ayurvedicproimage/default.png"
     },
+    imageId: {
+      type: String,
+      required: true
+    },
     disc: {
       type: String,
       required: true
