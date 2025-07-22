@@ -103,30 +103,10 @@ router.post("/addgenericcat", createGenericCategory);
 router.get("/allgenericcat", allGenericCategories);
 router.get("/deletegenericcat/:id", deleteGenericCategory);
 
-const storage3 = multer.diskStorage({
-  destination: function(req, file, cb) {
-    return cb(null, `public/img/genericproimage`);
-  },
-  filename: function(req, file, cb) {
-    return cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-const uploadimg = multer({ storage: storage3 });
-
 router.get("/genericproduct", getGenericProductPage);
-router.post("/addgenericproduct", uploadimg.single("productimage"), createGenericProduct);
+router.post("/addgenericproduct", upload.single("productimage"), createGenericProduct);
 router.get("/allgenericpro", getAllGenericProduct);
-
-const editstorage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    return cb(null, `public/img/genericproimage`);
-  },
-  filename: function(req, file, cb) {
-    return cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-const edituploads = multer({ storage: editstorage });
-router.post("/editgenericpro/:id", edituploads.single("productimage"), editGenericProduct);
+router.post("/editgenericpro/:id", upload.single("productimage"), editGenericProduct);
 router.get("/deletegenericpro/:id", deleteGenericProduct);
 
 router.post("/addayurvdcbrand", createAyurvedicBrand);
@@ -139,29 +119,10 @@ router.post("/addayurvdccat", createAyurvedicCategories);
 router.get("/allayurvdccat", getAllAyurvedicCategories);
 router.get("/deleteayurvdccat/:id", deleteAyurvedicCategory);
 
-const ayurStorage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    return cb(null, `public/img/ayurvedicproimage`);
-  },
-  filename: function(req, file, cb) {
-    return cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-const ayuuploads = multer({ storage: ayurStorage });
-
-const editayustorage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, `public/img/ayurvedicproimage`);
-  },
-  filename: function(req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-const editayuruploads = multer({ storage: editayustorage });
 router.get("/ayurvedicpro", getAyurvedicProductPage);
-router.post("/addayurvdcpro", ayuuploads.single("productimage"), addAyurvedicProduct);
+router.post("/addayurvdcpro", upload.single("productimage"), addAyurvedicProduct);
 router.get("/allayurvdcpro", getAllAyurvedicProducts);
-router.post("/editayurvdcpro/:id", editayuruploads.single("productimage"), editAyurvdicProduct);
+router.post("/editayurvdcpro/:id", upload.single("productimage"), editAyurvdicProduct);
 router.get("/deleteayurvdcpro/:id", deletAyurvedicProduct);
 
 router.get("/allorders", allOrders);
