@@ -43,8 +43,8 @@ async function addProduct(req, res) {
 
 async function getAllProduct(req, res) {
   try {
-    const page = parseInt(req.query.page) || 1; // current page
-    const limit = 10; // number of products per page
+    const page = parseInt(req.query.page) || 1; 
+    const limit = 10;
 
     const skip = (page - 1) * limit;
 
@@ -53,7 +53,7 @@ async function getAllProduct(req, res) {
       .populate("category")
       .skip(skip)
       .limit(limit)
-      .sort({ createdAt: -1 }); // optional: newest first
+      .sort({ createdAt: -1 }); 
 
     const totalProducts = await Product.countDocuments();
     const totalPages = Math.ceil(totalProducts / limit);
