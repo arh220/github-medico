@@ -553,5 +553,14 @@ img {
     margin: 2px 0;
   }
 }
+/* Make nested dropdown menus responsive on small screens */
+@media (max-width: 768px) {
+  .dropdown-submenu .dropdown-menu {
+    position: static !important;
+    width: 100% !important;
+    margin-left: 1rem;
+    box-shadow: none;
+  }
+}
 
 /*** Footer End ***/
