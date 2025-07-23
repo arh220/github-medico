@@ -17,7 +17,7 @@ async function signupUser(req, res) {
     dob,
     gender
   });
-  await sendMail(email,"welcome to oure website",`Hi,${name} Thank you for registring! `)
+  await sendMail(email,"welcome to oure website",`Hi, ${name} Thank you for registring! `)
 
   return res.redirect("/signin");
 }

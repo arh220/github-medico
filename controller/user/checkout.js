@@ -1,4 +1,5 @@
 const order = require("../../model/order");
+const sendMail = require("../../utils/sendmail");
 
 async function checkout(req, res) {
   const cart = req.session.cart || [];
@@ -37,6 +38,7 @@ async function createBill(req, res) {
     });
 
     await Order.save();
+    await sendMail(email, "Order Conform", `Hi, ${name} Thanks For Youre Order `);
     req.session.cart = [];
     res.render("thanks", { order: Order });
   } catch (error) {
