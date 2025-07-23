@@ -562,5 +562,10 @@ img {
     box-shadow: none;
   }
 }
+.topbar {
+    z-index: 1040;
+    position: relative;
+}
+
 
 /*** Footer End ***/

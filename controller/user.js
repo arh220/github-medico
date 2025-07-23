@@ -1,6 +1,7 @@
 const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const { createTokenForUser } = require("../services/auth");
+const sendMail = require("../utils/sendmail");
 
 async function signupUser(req, res) {
   const { name, email, password, mo, city, dob, gender } = req.body;
@@ -16,6 +17,7 @@ async function signupUser(req, res) {
     dob,
     gender
   });
+  await sendMail(email,"welcome to oure website",`Hi,${name} Thank you for registring! `)
 
   return res.redirect("/signin");
 }
