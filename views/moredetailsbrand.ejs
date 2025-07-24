@@ -10,6 +10,9 @@
 
 <body>
     <%- include('./partials/nav.ejs') %>
+    <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Product More Detailsact</h1>
+        </div>
 
         <div class="container py-5">
             <div class="row g-5">
@@ -47,19 +50,19 @@
                         </li>
                         <li>* Form : <%= products.form %>
                         </li>
-                        <li>* Itraconazol : <%= products.content %>
+                        <li>* Composition : <%= products.content %>
                         </li>
                         <li>* Country of Origin: India</li>
                         <li>* Delivery charges may apply at checkout</li>
                     </ul>
 
                     <!-- Quantity Selector -->
-                    <div class="d-flex align-items-center mb-4">
+                    <!-- <div class="d-flex align-items-center mb-4">
                         <label class="me-3">Quantity:</label>
                         <button class="btn btn-outline-secondary btn-sm">−</button>
                         <span class="mx-2">1</span>
                         <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
+                    </div> -->
 
                     <a href="/cart/<%= products._id %>" class="btn btn-primary px-4 py-2">
                         <i class="fa fa-shopping-cart me-2"></i> Add to Cart
