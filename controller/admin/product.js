@@ -38,7 +38,7 @@ async function addProduct(req, res) {
     pakingSize,
     form
   });
-  res.render("admin/index", { error: null });
+  res.redirect("/admin/allproduct");
 }
 
 async function getAllProduct(req, res) {
