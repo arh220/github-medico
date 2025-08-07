@@ -2,9 +2,14 @@ const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const { createTokenForUser } = require("../services/auth");
 const sendMail = require("../utils/sendmail");
+const { uploadimage } = require("../utils/uploadimage");
+const fs = require("fs");
 
 async function signupUser(req, res) {
   const { name, email, password, mo, city, dob, gender } = req.body;
+  const proimage = req.file;
+  const { secure_url, public_id } = await uploadimage(proimage.path);
+  fs.unlinkSync(proimage.path);
   const hashpass = await bcrypt.hash(password, 10);
 
   await User.create({
@@ -13,11 +18,12 @@ async function signupUser(req, res) {
     password: hashpass,
     mo,
     city,
-    image: `/img/profile/${req.file?.filename || "default.png"}`,
+    image: secure_url,
+    imageId: public_id,
     dob,
     gender
   });
-  await sendMail(email,"welcome to oure website",`Hi, ${name} Thank you for registring! `)
+  await sendMail(email, "welcome to oure website", `Hi, ${name} Thank you for registring! `);
 
   return res.redirect("/signin");
 }

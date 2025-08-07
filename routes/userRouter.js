@@ -10,6 +10,7 @@ const { getAllGenericBrandAndCategory, getGenericProductByCategory, gpMoredetail
 const { allAyurvedicProduct, ayurvedicProductMoredetails } = require("../controller/user/ayurvedic");
 const { checkout, createBill } = require("../controller/user/checkout");
 const { requiredAuth } = require("../middleware/auth");
+const upload = require("../utils/multer");
 
 router.get("/", getBrand, getproductByCategory, getAllGenericBrandAndCategory);
 router.get("/contact", (req, res) => {
@@ -24,17 +25,6 @@ router.get("/signin", (req, res) => {
 router.get("/signout", (req, res) => {
   return res.clearCookie("token").redirect("/");
 });
-
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    return cb(null, "./public/img/profile");
-  },
-  filename: function(req, file, cb) {
-    return cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-
-const upload = multer({ storage });
 
 router.post("/signup", upload.single("image"), signupUser);
 router.post("/signin", signinUser);

@@ -24,7 +24,6 @@ const userSignupSchema = mongoose.Schema(
     },
     image: {
       type: String,
-      default: "./img/profile/default.png",
       required: true
     },
     imageId: {
