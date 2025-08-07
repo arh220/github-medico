@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const User = require("../model/user");
 
 secretKey = "@arh123+";
 

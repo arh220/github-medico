@@ -27,6 +27,10 @@ const userSignupSchema = mongoose.Schema(
       default: "./img/profile/default.png",
       required: true
     },
+    imageId: {
+      type: String,
+      required: true
+    },
     dob: {
       type: String,
       required: true

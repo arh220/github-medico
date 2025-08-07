@@ -1,5 +1,7 @@
 const user = require("../../model/user");
 const bcrypt = require("bcrypt");
+const { uploadimage } = require("../../utils/uploadimage");
+const fs = require("fs");
 
 async function signinAdmin(req, res) {
   const { email, password } = req.body;
@@ -19,6 +21,9 @@ async function signinAdmin(req, res) {
 
 async function createsignupAdmin(req, res) {
   const { name, email, password, role, mo, city, dob, gender } = req.body;
+  const proimage = req.file;
+  const { secure_url, public_id } = await uploadimage(proimage.path);
+  fs.unlinkSync(proimage.path);
   const existemail = await user.findOne({ email });
   if (existemail) {
     res.render("admin/signup", { error: "Email Alredy Exist..." });
@@ -33,7 +38,8 @@ async function createsignupAdmin(req, res) {
     city,
     dob,
     gender,
-    image: `/img/adminprofile/${req.file?.filename || "default.png"} `
+    image: secure_url,
+    imageId: public_id
   });
   res.render("admin/index", { error: null });
 }

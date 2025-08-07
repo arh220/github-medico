@@ -58,21 +58,12 @@ router.get("/index", (req, res) => {
   }
   res.render("admin/index", { error: null });
 });
-const adminstorage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    return cb(null, `public/img/adminprofile`);
-  },
-  filename: function(req, file, cb) {
-    return cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-const adminuploads = multer({ storage: adminstorage });
 
 router.post("/signin", signinAdmin);
 router.get("/signup", (req, res) => {
   res.render("admin/signup", { error: null });
 });
-router.post("/signup", adminuploads.single("image"), createsignupAdmin);
+router.post("/signup", upload.single("image"), createsignupAdmin);
 router.get("/signout", signoutAdmin);
 
 router.get("/allbrand", getAllBrand);
